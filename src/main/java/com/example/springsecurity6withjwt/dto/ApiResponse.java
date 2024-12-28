@@ -25,4 +25,10 @@ public class ApiResponse {
 
     private UserDto user;
     private List<UserDto> userList;
+
+    private MessageDto messages;
+    private List<MessageDto> listMessage;
+
+    private ConversationDto conversation;
+    private List<ConversationDto> listConversation;
 }

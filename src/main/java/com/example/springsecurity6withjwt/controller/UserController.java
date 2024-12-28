@@ -7,6 +7,7 @@ import com.example.springsecurity6withjwt.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -16,7 +17,6 @@ public class UserController {
     private final UserService userService;
 
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ApiResponse> update(@RequestBody UpdateRequest updateRequest) {
         return ResponseEntity.ok(userService.update(updateRequest));
     }
@@ -27,7 +27,6 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ApiResponse> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }

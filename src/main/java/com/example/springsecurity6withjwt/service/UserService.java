@@ -4,6 +4,7 @@ import com.example.springsecurity6withjwt.config.JwtUtils;
 import com.example.springsecurity6withjwt.dto.*;
 import com.example.springsecurity6withjwt.entity.User;
 import com.example.springsecurity6withjwt.enums.EROLE;
+import com.example.springsecurity6withjwt.exception.NotFoundException;
 import com.example.springsecurity6withjwt.mapper.UserMapper;
 import com.example.springsecurity6withjwt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,11 @@ public class UserService {
 
     public ApiResponse login(LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
         // so sanh password
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Wrong password");
+            throw new NotFoundException("Wrong password");
         }
 
         String token = jwtUtils.generateToken(user); // tao token

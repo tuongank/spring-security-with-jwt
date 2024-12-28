@@ -25,18 +25,20 @@ public class ApplicationInit implements ApplicationRunner {
     private String password;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        EROLE role = EROLE.ADMIN;
+    public void run(ApplicationArguments args) {
+        {
+            EROLE role = EROLE.ADMIN;
 
-        if (userRepository.findByUsername(username).isEmpty()) {
-            User user = User.builder()
-                    .username(username)
-                    .password(passwordEncoder.encode(password))
-                    .address("Ha Noi")
-                    .role(role)
-                    .build();
-            userRepository.save(user);
-            log.info("Admin account created");
+            if (userRepository.findByUsername(username).isEmpty()) {
+                User user = User.builder()
+                        .username(username)
+                        .password(passwordEncoder.encode(password))
+                        .address("Ha Noi")
+                        .role(role)
+                        .build();
+                userRepository.save(user);
+                log.info("Admin account created");
+            }
         }
     }
 }
